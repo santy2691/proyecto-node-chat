@@ -5,8 +5,13 @@ block content
         .card 
             .card-body 
                 h3.card-title.text-center selecciona la sala de chat 
-                .d-flex 
-                    .form-check.form-check-inline 
-                        input.form-check-input(type="radio" name="1")
-                    .form-check.form-check-inline 
-                        input.form-check-input(type="radio" name="2")
+                form(action="/chat/view", method="get", id="form").d-flex.flex-column
+                    .form-check
+                        input.form-check-input.check(type="radio", name="chat", id="chat", value="chat1")
+                        label(for="chat1") Chat 1 
+                    .form-check.justify-content-center 
+                        input.form-check-input.check(type="radio", name="chat", id="chat", value="chat2")
+                        label(for="chat2") Chat 2
+                    .mt-3 
+                        input(type="submit", value="entrar a sala").btn.btn-primary 
+    script(src="/js/listChat.js")  

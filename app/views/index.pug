@@ -8,12 +8,10 @@ block content
           form(action="/user/login", method="post") 
             .mb-3 
                 label.form-label(for="Username") Username: 
-                input.form-control(type="text", id="user", placeholder="user")
+                input.form-control(type="text", id="name", name="name", placeholder="user")
             .mb-3 
                 label.form-label(for="password") Password:
-                input.form-control(type="password", id="password", placeholder="*********")  
+                input.form-control(type="password", id="password", name="name", placeholder="*********")  
             .mb-3.d-flex.justify-content-between 
-                button.btn.btn-outline-secondary registrer
-                input.btn.btn-primary(type="submit", value="login")
-
-    script(src="/js/login.js")              
+                a(href="/registrer").btn.btn-outline-secondary registrer
+                input.btn.btn-primary(type="submit", value="login")           

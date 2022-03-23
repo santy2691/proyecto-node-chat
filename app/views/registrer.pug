@@ -1,0 +1,16 @@
+extends ./layout
+
+block content
+    .container.mt-3.d-flex.justify-content-center
+      #formularioLogin.card 
+        .card-body 
+          h1.card-title.text-center  Registrer new User
+          form(action="/registrer", method="post") 
+            .mb-3 
+                label.form-label(for="Username") Username: 
+                input.form-control(type="text", id="name", name="name",placeholder="user")
+            .mb-3 
+                label.form-label(for="password") Password:
+                input.form-control(type="password", id="password", name="password",password="passowrd", placeholder="*********")  
+            .mb-3.d-flex.justify-content-between 
+                input.btn.btn-primary(type="submit", value="registrer")
