@@ -10,4 +10,8 @@ let userSchema = new Schema({
 });
 
 
+userSchema.methods.verificarPassword = function(password) {
+    return password === this.password;
+}
+
 module.exports = mongoose.model('User',userSchema);

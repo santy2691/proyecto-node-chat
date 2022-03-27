@@ -1,12 +1,15 @@
 const express = require('express');
 const routes = require('./routes/index.js');
+const session = require('express-session');
+const passport = require('passport');
+
 const path = require('path');
 
 mongoose = require('mongoose');
 const app = express();
 
-// conexion a la base de datos
 
+// conexion a la base de datos
 mongoose.connect('mongodb://root:pass12345@localhost:27017/chat-node?authSource=admin',{
       useUnifiedTopology: true, 
       useNewUrlParser: true },
@@ -15,6 +18,23 @@ mongoose.connect('mongodb://root:pass12345@localhost:27017/chat-node?authSource=
         else console.log(`Database Online:`);
     }
 );
+
+
+// inicializar la estrategia de password
+require('./auth/auth');
+
+
+// configuracion de session
+app.use(session({
+    secret: "secret",
+    resave: true,
+    saveUninitialized: true
+}));
+
+
+// configuracion de passport para la authentificacion 
+app.use(passport.initialize());
+app.use(passport.session());
 
 // agregar el motor de plantillas 
 app.set('view engine', 'pug');
@@ -27,6 +47,12 @@ app.use(express.static(path.resolve("views/")));
 app.use(express.static(path.resolve("public/")));
 app.use(express.urlencoded());
 
+
+// middleware global para almacenar el usuario 
+app.use((req,res,next)=>{
+    app.locals.user = req.user;
+    next()
+});
 // agregar las rutas
 app.use(routes);
 

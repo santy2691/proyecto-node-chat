@@ -1,7 +1,33 @@
 #navegacion {
-    height: 60px;
+    min-height: 60px;
+    padding: 0;
 }
 
 #formularioLogin {
     width: 600px;
 }
+
+.nombreSala {
+    background-color: grey;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    width: 60%;
+}
+
+#menuChat{
+    width: 80%;
+}
+#textoChat {
+    height: 400px;
+}
+
+#usuarios {
+    width: 15%;
+    height: 400px;
+}
+
+#divInputTexto {
+    width: 100%;
+}
+

@@ -1,0 +1,19 @@
+extends ./layout
+
+block content
+    .container-fluid.mt-5
+        .container-fluid.ms-5
+            h2= "sala de " + nombreSala
+        .container-fluid.d-flex.justify-content-evenly.flex-wrap 
+            #menuChat 
+                .card#textoChat 
+                    .card-body 
+                .mt-3.row
+                    .col-sm-10
+                        input.form-control.divInputTexto(type="text", name="mensaje", placeholder="escribe tu mensaje aqui")
+                    .col-auto
+                        input.btn.btn-primary(type="button", value="enviar")
+            #usuarios.card 
+                .card-body 
+
+                
