@@ -3,7 +3,8 @@ extends ./layout
 block content 
     .container.mt-3 
         .card 
-            .card-body 
+            .card-body
+                p=user.userName 
                 h3.card-title.text-center selecciona la sala de chat 
                 form(action="/chat/view", method="post", id="form").d-flex.flex-column
                     input(type="hidden", name="sala", id="sala", value="funciona")

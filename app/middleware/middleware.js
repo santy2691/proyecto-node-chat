@@ -28,12 +28,29 @@ const isAuthenticated = function(req,res,next)  {
 const mensajeChat = async function(req,res,next) {
     let sala = req.body.sala;
     let mensajes = await Mensaje.find({sala_chat: sala});
-    console.log(mensajes);
+    req.body.mensajes = mensajes;
     next(); 
+}
+
+// middleware para guardar mensaje a la base de datos 
+const guardarMensaje = async function(req,res,next) {
+    console.log(req.user.userName);
+    let mensaje = new Mensaje({
+        mensaje: req.body.mensaje,
+        author: req.user.userName,
+        sala_chat: req.body.sala,
+    });
+    try {
+        await mensaje.save();
+        next(); 
+    } catch (error) {
+        res.redirect('back');
+    }
 }
 
 module.exports = {
     newUser,
     mensajeChat,
+    guardarMensaje,
     isAuthenticated
 }

@@ -1,6 +1,7 @@
 const express = require('express');
 const routes = require('./routes/index.js');
 const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session)
 const passport = require('passport');
 const http = require('http');
 const path = require('path');
@@ -19,6 +20,15 @@ mongoose.connect('mongodb://root:pass12345@localhost:27017/chat-node?authSource=
     }
 );
 
+// para guardar la sesion por si se reinicia el servidor 
+let store = new MongoDBStore({
+    uri: 'mongodb://root:pass12345@localhost:27017/connect_mongodb_session?authSource=admin',
+    collection: 'mySessions'
+});
+
+store.on('error',function(error){
+    console.log(error);
+})
 
 // inicializar la estrategia de password
 require('./auth/auth');
@@ -28,7 +38,8 @@ require('./auth/auth');
 app.use(session({
     secret: "secret",
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    store: store,
 }));
 
 

@@ -15,7 +15,6 @@ router.get('/',(req,res)=>{
 
 // ruta de la lista de chats 
 router.get('/chat/list',[middleware.isAuthenticated,(req,res) => {
-    console.log(req.headers);
     res.render("listChat.pug");
 }])
 
@@ -31,6 +30,11 @@ router.get('/chat/view/chat*',[
     chatController.viewSala
 ]);
 
+
+router.get('/logout',(req,res)=> {
+    req.session.destroy();
+    res.redirect('/login');
+})
 // ruta que envia a la pag de registro de un nuevo usuario 
 router.get('/registrer',(req,res)=> res.render('registrer.pug'));
 
@@ -53,6 +57,7 @@ router.post('/user/login',[
 
 router.post('/chat/send',[
     middleware.isAuthenticated,
+    middleware.guardarMensaje,
     (req,res)=>{
         return res.json({ok: "ok"})
     }

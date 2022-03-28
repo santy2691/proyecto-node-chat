@@ -20,7 +20,7 @@ passport.serializeUser((user, done) => {
     passwordField: 'password',
     passReqToCallback: true
   }, async (req, username, password, done) => {
-    const user = await User.findOne({UserName: username});
+    const user = await User.findOne({userName: username});
     if(!user) {
       return done(null, false);
     }

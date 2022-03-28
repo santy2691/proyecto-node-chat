@@ -2,7 +2,8 @@
 
 
 const viewSala = (req,res) => {
-    return res.render('salaChat.pug',{nombreSala: req.body.chat});
+    let mensajes = req.body.mensajes;
+    return res.render('salaChat.pug',{nombreSala: req.body.chat,mensajes: mensajes});
 }
 
 
