@@ -15,12 +15,19 @@ router.get('/',(req,res)=>{
 
 // ruta de la lista de chats 
 router.get('/chat/list',[middleware.isAuthenticated,(req,res) => {
+    console.log(req.headers);
     res.render("listChat.pug");
 }])
 
 // ruta de la sala de chat 
 router.post('/chat/view/chat*',[
+    middleware.isAuthenticated,
     middleware.mensajeChat,
+    chatController.viewSala
+]);
+
+router.get('/chat/view/chat*',[
+    middleware.isAuthenticated,
     chatController.viewSala
 ]);
 
@@ -30,14 +37,25 @@ router.get('/registrer',(req,res)=> res.render('registrer.pug'));
 // ruta para registrar un nuevo usuario 
 router.post('/registrer',[
     middleware.newUser,
-    userController.viewHome
-]);
-
-router.post('/user/login',[ 
-    passport.authenticate('login',{
+    passport.authenticate('isLogin',{
         successRedirect: '/chat/list',
         failureRedirect: '/'
     })
+]);
+
+router.post('/user/login',[ 
+    passport.authenticate('isLogin',{
+        successRedirect: '/chat/list',
+        failureRedirect: '/'
+    })
+]);
+
+
+router.post('/chat/send',[
+    middleware.isAuthenticated,
+    (req,res)=>{
+        return res.json({ok: "ok"})
+    }
 ]);
 
 
