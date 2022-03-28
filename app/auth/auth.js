@@ -14,7 +14,7 @@ passport.serializeUser((user, done) => {
   });
 
   
-  passport.use('login', new LocalStrategy({
+  passport.use('isLogin', new LocalStrategy({
     // nota: el usernamefield y pass... tienen que tener el mismo nombre q el input del html
     usernameField: 'username',
     passwordField: 'password',
@@ -29,3 +29,5 @@ passport.serializeUser((user, done) => {
     }
     return done(null, user);
   }));
+
+  

@@ -45,7 +45,8 @@ app.set('view engine', 'pug');
 app.use(express.static(path.resolve("views/")));
 // rutas de los ficheros estaticos (css y js)
 app.use(express.static(path.resolve("public/")));
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
 
 
 // middleware global para almacenar el usuario 
