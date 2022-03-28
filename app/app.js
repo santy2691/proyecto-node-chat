@@ -2,12 +2,12 @@ const express = require('express');
 const routes = require('./routes/index.js');
 const session = require('express-session');
 const passport = require('passport');
-
+const http = require('http');
 const path = require('path');
 
 mongoose = require('mongoose');
 const app = express();
-
+const server = http.createServer(app);
 
 // conexion a la base de datos
 mongoose.connect('mongodb://root:pass12345@localhost:27017/chat-node?authSource=admin',{
@@ -56,6 +56,6 @@ app.use((req,res,next)=>{
 // agregar las rutas
 app.use(routes);
 
-app.listen(3000, ()=>{
+server.listen(3000, ()=>{
     console.log("app listenig on port 3000");
 })
