@@ -31,3 +31,21 @@
     width: 100%;
 }
 
+
+#chatText {
+    overflow: scroll;
+}
+
+.textUser {
+    width: 80%;
+    display: block;
+    padding-left: 40%;
+    width: 100%;
+}
+
+.textOtro {
+    width: 80%;
+    display: block;
+    padding-right: 40%;
+    width: 100%;
+}

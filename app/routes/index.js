@@ -59,7 +59,7 @@ router.post('/chat/send',[
     middleware.isAuthenticated,
     middleware.guardarMensaje,
     (req,res)=>{
-        return res.json({ok: "ok"})
+        return res.json({success: "ok", mensaje: req.mensaje})
     }
 ]);
 

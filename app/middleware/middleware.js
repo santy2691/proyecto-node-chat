@@ -34,14 +34,14 @@ const mensajeChat = async function(req,res,next) {
 
 // middleware para guardar mensaje a la base de datos 
 const guardarMensaje = async function(req,res,next) {
-    console.log(req.user.userName);
     let mensaje = new Mensaje({
         mensaje: req.body.mensaje,
         author: req.user.userName,
         sala_chat: req.body.sala,
     });
     try {
-        await mensaje.save();
+        const msj = await mensaje.save();
+        req.mensaje = msj;
         next(); 
     } catch (error) {
         res.redirect('back');

@@ -2,21 +2,23 @@ extends ./layout
 
 block content
     input(type="hidden", name="sala",id="sala",value=nombreSala)
+    input(type="hidden", name="usuario",id="usuario",value=user.userName)
     .container-fluid.mt-5
-        p=user.userName
         .container-fluid.ms-5
             h2= "sala de " + nombreSala
         .container-fluid.d-flex.justify-content-evenly.flex-wrap 
             #menuChat 
                 .card#textoChat 
-                    .card-body
+                    .card-body#chatText
                         each mensaje, index in mensajes 
                             - let isUser = user.userName == mensaje.author;
                             - let fecha = mensaje.create_at.toLocaleDateString() + " " + mensaje.create_at.toLocaleTimeString();
                             if isUser
-                                p.text-end= mensaje.author +  " [" + fecha +  "] " + mensaje.mensaje
+                                div.textUser 
+                                    p= mensaje.author +  " [" + fecha +  "] " + mensaje.mensaje
                             else 
-                                p.text-start= mensaje.author + " [" + fecha +  "] " + mensaje.mensaje
+                                div.textOtro
+                                    p= mensaje.author + " [" + fecha +  "] " + mensaje.mensaje
                 .mt-3.row
                     .col-sm-10
                         input.form-control.divInputTexto(type="text", name="mensaje", id="mensaje", placeholder="escribe tu mensaje aqui")
@@ -24,6 +26,7 @@ block content
                         input.btn.btn-primary(type="button", value="enviar", id="botonChat")
             #usuarios.card 
                 .card-body
+    script(src="/socket.io/socket.io.js") 
     script(src="/js/chat.js")  
 
                 
