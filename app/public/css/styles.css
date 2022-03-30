@@ -49,3 +49,9 @@
     padding-right: 40%;
     width: 100%;
 }
+
+
+.mensaje {
+    background-color: rgb(184, 212, 184);
+    border-radius: 5px;
+}

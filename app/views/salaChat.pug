@@ -15,17 +15,17 @@ block content
                             - let fecha = mensaje.create_at.toLocaleDateString() + " " + mensaje.create_at.toLocaleTimeString();
                             if isUser
                                 div.textUser 
-                                    p= mensaje.author +  " [" + fecha +  "] " + mensaje.mensaje
+                                    p.mensaje= mensaje.author +  " [" + fecha +  "] " + mensaje.mensaje
                             else 
                                 div.textOtro
-                                    p= mensaje.author + " [" + fecha +  "] " + mensaje.mensaje
+                                    p.mensaje= mensaje.author + " [" + fecha +  "] " + mensaje.mensaje
                 .mt-3.row
                     .col-sm-10
                         input.form-control.divInputTexto(type="text", name="mensaje", id="mensaje", placeholder="escribe tu mensaje aqui")
                     .col-auto
                         input.btn.btn-primary(type="button", value="enviar", id="botonChat")
             #usuarios.card 
-                .card-body
+                .card-body#usuariosConectados
     script(src="/socket.io/socket.io.js") 
     script(src="/js/chat.js")  
 

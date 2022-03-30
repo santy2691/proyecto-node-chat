@@ -1,16 +1,31 @@
 const botonEnviar = document.getElementById('botonChat');
 const cuadroMensajes = document.getElementById('chatText');
+const usuriosConectados = document.getElementById('usuariosConectados');
 const sala = document.getElementById('sala').value;
 const usuario = document.getElementById('usuario').value;
 
-let socket = io();
+// iniciar conexion con el servidor 
+// le mando la info del usuario y de la sala para la desconexion 
+let socket = io({
+    extraHeaders: {
+        "user": usuario,
+        "sala": sala
+    }
+});
 
+// cuando se conecta el usuario en esta sala envio la info para agregar en la
+// tabla de usuarios conectados 
 socket.on('connect', () => {
     socket.emit('usuario:conectado',{usuario: usuario, sala: sala});
 })
 
+
+// cuando se conecta un usuario el servidor envia la info y actualizo la
+// tabla de usuarios conectados 
 socket.on('usuarios', (usuarios)=> {
-    console.log(usuarios);
+    let usariosSala = usuarios[sala];
+    agregarUsariosConectados(usuriosConectados,usariosSala);
+
 })
 
 // evento del click 
@@ -45,9 +60,19 @@ function agregarMensaje(elementoDOM, msj) {
     let hora = new Date(msj.create_at).toLocaleTimeString();
     let string = author + " [ " + fecha + " " + hora + " ] " + mensaje; 
     let div = document.createElement('div');
-    let parafo = document.createElement('p');
-    parafo.textContent = string;
+    let parrafo = document.createElement('p');
+    parrafo.className += "mensaje";
+    parrafo.textContent = string;
     div.className += "textUser";
-    div.appendChild(parafo);
+    div.appendChild(parrafo);
     elementoDOM.appendChild(div);
+}
+
+// funcion para actualizar tabla de usuarios 
+function agregarUsariosConectados(elementoDOM, usuarios) {
+    let usuariosHTML = "";
+    usuarios.forEach(element => {
+        usuariosHTML += "<p>" + element + "</p>";
+    });
+    elementoDOM.innerHTML = usuariosHTML;
 }
