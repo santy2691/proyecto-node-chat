@@ -24,7 +24,7 @@ socket.on('connect', () => {
 // tabla de usuarios conectados 
 socket.on('usuarios', (usuarios)=> {
     let usariosSala = usuarios[sala];
-    agregarUsariosConectados(usuriosConectados,usariosSala);
+    agregarUsariosConectados(usuriosConectados,usariosSala,usuario);
 
 })
 
@@ -52,7 +52,7 @@ socket.on(sala, function(msg){
 })
 
 // funcion para agregar al chat el nuevo mensaje 
-function agregarMensaje(elementoDOM, msj) {
+function agregarMensaje(elementoDOM, msj,user) {
     let mensaje = msj.mensaje;
     let author = msj.author;
     console.log(msj.create_at);
@@ -63,7 +63,7 @@ function agregarMensaje(elementoDOM, msj) {
     let parrafo = document.createElement('p');
     parrafo.className += "mensaje";
     parrafo.textContent = string;
-    div.className += "textUser";
+    div.className += author === user ? "textUser" : "textOtro";
     div.appendChild(parrafo);
     elementoDOM.appendChild(div);
 }
