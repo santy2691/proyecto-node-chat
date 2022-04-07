@@ -11,6 +11,12 @@ let usuariosConectados = {
 module.exports = io => {
     // tomo el envento de conexion 
     io.on('connection', (socket) => {
+        // entrada a la sala por parte del cliente 
+        socket.join(socket.request.headers.sala);
+        
+        socket.on('mensaje_enviado', (msg) =>{
+            io.in(socket.request.headers.sala).emit('mensaje_enviado',msg);
+        })
         
         // aqui tomo el envento de cuando un usuario se conecta 
         socket.on('usuario:conectado',(usuario)=> {
@@ -21,25 +27,6 @@ module.exports = io => {
             io.emit('usuarios',usuariosConectados);
         });
         
-        // aqui cuando hay un mensaje de chat 1 
-        socket.on('chat1', (msg) => {
-            io.emit('chat1',msg)
-        });
-
-          // aqui cuando hay un mensaje de chat 2
-        socket.on('chat2', (msg) => {
-            io.emit('chat2',msg)
-        })
-
-          // aqui cuando hay un mensaje de chat 3
-        socket.on('chat3', (msg) => {
-            io.emit('chat3',msg)
-        })
-
-          // aqui cuando hay un mensaje de chat 4
-        socket.on('chat4', (msg) => {
-            io.emit('chat4',msg)
-        })
 
         // aqui tomo el evento de desconeccion de un usuario y actualizo 
         // la lista de usuarios conectados 
@@ -54,6 +41,7 @@ module.exports = io => {
         })
     })
 }
+
 
 
 

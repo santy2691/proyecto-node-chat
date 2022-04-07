@@ -41,13 +41,13 @@ botonEnviar.addEventListener('click',async ()=>{
     })
     const data = await respuesta.json();
     if (data.success) {
-        socket.emit(sala, data.mensaje);
+        socket.emit('mensaje_enviado', data.mensaje);
     }
 });
 
 
 // recibir el emensaje desde socket.io
-socket.on(sala, function(msg){
+socket.on('mensaje_enviado', function(msg){
     agregarMensaje(cuadroMensajes,msg);
 })
 
