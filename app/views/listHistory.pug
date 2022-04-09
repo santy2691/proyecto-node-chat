@@ -1,0 +1,17 @@
+extends ./layout
+
+block content 
+
+    .container.mt-3 
+        h3  Historial 
+        form(class="row", action="/history/list", method="post") 
+            .row.g-0 
+                .col-sm-6
+                    select(class="form-select", name="opcion", arial-label="Default select example")
+                        option(value="chat1") chat1 
+                        option(value="chat2") chat2 
+                        option(value="chat3") chat3 
+                        option(value="chat4") chat4     
+                .col-6.d-flex.justify-content-center
+                    button(class="btn btn-primary" ,type="submit")  ver historial 
+        

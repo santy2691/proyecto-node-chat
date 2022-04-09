@@ -1,7 +1,8 @@
 const express = require('express');
 const userController = require('../controller/UserController');
 const chatController = require('../controller/ChatController');
-const middleware = require('../middleware/middleware')
+const historyController = require('../controller/historyController');
+const middleware = require('../middleware/middleware');
 const passport = require('passport');
 
 
@@ -29,6 +30,28 @@ router.get('/chat/view/chat*',[
     middleware.isAuthenticated,
     chatController.viewSala
 ]);
+
+
+
+router.get('/history/list',[
+    middleware.isAuthenticated,
+    (req,res)=>{
+        return res.render('listHistory.pug');
+}]);
+
+
+router.post('/history/list',[
+    middleware.isAuthenticated,
+    historyController.selectChatHistory
+]);
+
+router.get('/history/view/:chat',[
+    middleware.isAuthenticated,
+    middleware.agregarChatAlBody,
+    middleware.mensajeChat,
+    historyController.viewSalaHistory
+]);
+
 
 
 router.get('/logout',(req,res)=> {
@@ -62,6 +85,5 @@ router.post('/chat/send',[
         return res.json({success: "ok", mensaje: req.mensaje})
     }
 ]);
-
 
 module.exports = router;

@@ -23,7 +23,10 @@ const isAuthenticated = function(req,res,next)  {
     res.redirect('back');
 }
 
-
+const agregarChatAlBody = (req,res,next) =>{
+    req.body.sala = req.params.chat;
+    next();
+}
 
 const mensajeChat = async function(req,res,next) {
     let sala = req.body.sala;
@@ -52,5 +55,6 @@ module.exports = {
     newUser,
     mensajeChat,
     guardarMensaje,
-    isAuthenticated
+    isAuthenticated,
+    agregarChatAlBody
 }

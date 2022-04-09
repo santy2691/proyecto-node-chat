@@ -1,0 +1,22 @@
+extends ./layout
+
+block content
+    input(type="hidden", name="sala",id="sala",value=nombreSala)
+    input(type="hidden", name="usuario",id="usuario",value=user.userName)
+    .container-fluid.mt-5
+        .container-fluid.ms-5
+            h2= "sala de " + nombreSala
+        .container-fluid.d-flex.justify-content-evenly.flex-wrap 
+            #menuChat 
+                .card#textoChat 
+                    .card-body#chatText
+                        each mensaje, index in mensajes 
+                            - let isUser = user.userName == mensaje.author;
+                            - let fecha = mensaje.create_at.toLocaleDateString() + " " + mensaje.create_at.toLocaleTimeString();
+                            if isUser
+                                div.textUser 
+                                    p.mensaje= mensaje.author +  " [" + fecha +  "] " + mensaje.mensaje
+                            else 
+                                div.textOtro
+                                    p.mensaje= mensaje.author + " [" + fecha +  "] " + mensaje.mensaje
+    script(src="/js/history.js")  
