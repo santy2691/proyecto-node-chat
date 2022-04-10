@@ -51,10 +51,19 @@ const guardarMensaje = async function(req,res,next) {
     }
 }
 
+
+const borrarSalaChat = async (req,res,next)=> {
+    let sala = req.body.sala;
+    console.log(sala);
+    let numBorrados = await Mensaje.deleteMany({sala_chat: sala});
+    next();
+}
+
 module.exports = {
     newUser,
     mensajeChat,
     guardarMensaje,
     isAuthenticated,
-    agregarChatAlBody
+    agregarChatAlBody,
+    borrarSalaChat
 }

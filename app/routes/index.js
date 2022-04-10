@@ -32,27 +32,34 @@ router.get('/chat/view/chat*',[
 ]);
 
 
-
+// ruta para la vista donde eliges al sala 
 router.get('/history/list',[
     middleware.isAuthenticated,
     (req,res)=>{
         return res.render('listHistory.pug');
 }]);
 
-
+// ruta post para agregar a body el sala seleccionada 
 router.post('/history/list',[
     middleware.isAuthenticated,
     historyController.selectChatHistory
 ]);
 
+// routa para mirar el historial de un chat
 router.get('/history/view/:chat',[
     middleware.isAuthenticated,
     middleware.agregarChatAlBody,
-    middleware.mensajeChat,
+    middleware.mensajeChat, // para que me genere un array vacio y no me cause error en el pug 
     historyController.viewSalaHistory
 ]);
 
-
+router.get('/history/delete/:chat',[
+    middleware.isAuthenticated,
+    middleware.agregarChatAlBody,
+    middleware.borrarSalaChat,
+    middleware.mensajeChat,
+    historyController.viewSalaHistory
+]);
 
 router.get('/logout',(req,res)=> {
     req.session.destroy();

@@ -4,9 +4,9 @@ block content
     input(type="hidden", name="sala",id="sala",value=nombreSala)
     input(type="hidden", name="usuario",id="usuario",value=user.userName)
     .container-fluid.mt-5
-        .container-fluid.ms-5
+        .container-fluid
             h2= "sala de " + nombreSala
-        .container-fluid.d-flex.justify-content-evenly.flex-wrap 
+        .container-fluid.d-flex.justify-content-center
             #menuChat 
                 .card#textoChat 
                     .card-body#chatText
@@ -19,4 +19,7 @@ block content
                             else 
                                 div.textOtro
                                     p.mensaje= mensaje.author + " [" + fecha +  "] " + mensaje.mensaje
+                form.d-flex.justify-content-center.mt-3(action="/history/delete/" + nombreSala, method="get")
+                    button(type="submit", class="btn btn-danger")  Borrar historial sala
+            
     script(src="/js/history.js")  
